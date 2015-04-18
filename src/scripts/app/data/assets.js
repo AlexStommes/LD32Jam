@@ -46,6 +46,11 @@ export default {
       'key': 'floorTile',
       'type': 'image',
       'url': 'ocean_floor.png'
+    },
+    {
+      'key': 'ship',
+      'type': 'image',
+      'url': 'boat01.png'
     }
   ],
 

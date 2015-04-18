@@ -7,6 +7,7 @@
 
 
 import Player from '../objects/Player';
+import Ship from '../objects/Ship';
 
 export default class Game extends Phaser.State {
 
@@ -27,6 +28,8 @@ export default class Game extends Phaser.State {
     this.player = this.add.existing(this.makePlayer(x, y));
     this.game.physics.enable(this.player, Phaser.Physics.ARCADE);
     this.camera.follow(this.player);
+
+    this.ship = this.add.existing(this.makeShip(x, this.game.seaLevel - 143/2, -80));
   }
 
   update () {
@@ -35,6 +38,10 @@ export default class Game extends Phaser.State {
 
   makePlayer (x, y, speed = 120) {
     return new Player(this.game, x, y, speed);
+  }  
+
+  makeShip (x, y, speed = -80) {
+    return new Ship(this.game, x, y, speed);
   }
 
   sky(game) {

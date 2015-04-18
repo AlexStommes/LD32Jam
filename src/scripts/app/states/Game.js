@@ -11,7 +11,7 @@ import Player from '../objects/Player';
 export default class Game extends Phaser.State {
 
   create () {
-    this.game.world.setBounds(0, 0, 2000, 2000);
+    this.game.world.setBounds(0, 0, 1800, 900);
     this.game.stage.backgroundColor = "fff";
     this.makeGradient(this.game);
     this.makeWaves(this.game);
@@ -38,18 +38,20 @@ export default class Game extends Phaser.State {
   makeGradient(game){
     //robin's gradient:
     var out = [];
-    var bmd = game.add.bitmapData(900, 600);
+    var worldWidth = game.world.width;
+    var worldHeight = game.world.height;
+    var bmd = game.add.bitmapData(worldWidth, worldHeight);
     bmd.addToWorld();
     // start of horizontal gradient
     var myY = 100;
 
-    for (var i = 0; i < 600; i++)
+    for (var i = 0; i < worldHeight; i++)
     {
       var c = Phaser.Color.interpolateColor(0x2A8BCA, 0x38589C, 30, i);
 
       // console.log(Phaser.Color.getWebRGB(c));
 
-      bmd.rect(0, myY, 900, myY+1, Phaser.Color.getWebRGB(c));
+      bmd.rect(0, myY, worldWidth, myY+1, Phaser.Color.getWebRGB(c));
 
       out.push(Phaser.Color.getWebRGB(c));
 
@@ -61,8 +63,9 @@ export default class Game extends Phaser.State {
   makeWaves(game) {
     var wavesx=0;
     var wavesy=78;
-    for (var i = 0; i < 29; i++){
-      var wavesWidth=32;
+    var wavesWidth=32;
+    var numTiles = this.calculateTiles(game.world.width, wavesWidth);
+    for (var i = 0; i < numTiles; i++){
       wavesx = i*wavesWidth;
       this.waves=this.add.image(wavesx,wavesy,'waves');
     }
@@ -71,12 +74,17 @@ export default class Game extends Phaser.State {
   // sea floor!!!
   makeFloor (game) {
     var floorx=0;
-    var floory=568;
-    for (var spacer = 0; spacer < 29; spacer++){
-      var floorWidth=32;
+    var floorWidth=32;
+    var floory=game.world.height-floorWidth;
+    var numTiles = this.calculateTiles(game.world.width, floorWidth);
+    for (var spacer = 0; spacer < numTiles; spacer++){
       floorx = spacer*floorWidth;
       this.addFloor=this.add.image(floorx,floory,'floorTile');
     }
+  }
+
+  calculateTiles(worldWidth, tileWidth) {
+    return worldWidth / tileWidth + 1;
   }
 
 }

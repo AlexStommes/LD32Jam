@@ -14,7 +14,7 @@ export default class Game extends Phaser.State {
     this.game.world.setBounds(0, 0, 1800, 900);
     this.game.stage.backgroundColor = "85E0FF";
     this.sky(this.game);
-    this.game.seaLevel = 100;
+    this.game.seaLevel = 160;
     this.makeGradient(this.game);
     this.makeWaves(this.game);
     this.makeFloor(this.game);
@@ -81,9 +81,10 @@ export default class Game extends Phaser.State {
 
   // waves!!!
   makeWaves(game) {
-    var wavesx=0;
-    var wavesy=78;
     var wavesWidth=32;
+    var wavesHeight=32;
+    var wavesx=0;
+    var wavesy= this.game.seaLevel - wavesHeight;
     var numTiles = this.calculateTiles(game.world.width, wavesWidth);
     for (var i = 0; i < numTiles; i++){
       wavesx = i*wavesWidth;

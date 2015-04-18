@@ -19,24 +19,28 @@ class Player extends Phaser.Sprite {
     // Remember to always use `super()` calls, whatever the class you're
     // extending from, using the same constructor arguments you'd specify for
     // regular Phaser classes.
-    super(game, x, y, 'player');
+    super(game, x, y, 'player', 'Player01');
 
     // If you need to call `super` from overridden methods use the form
     // `super.method(...)` call, passing the arguments required by that
     // overridden method.
 
     this.anchor.set(0.5);
+    
+    this.animations.add('swim');
+    //this.animations.add('swim', Phaser.Animation.generateFrameNames('player', 0, 3, '', 4), 30, true);
+    this.animations.play('swim', 8, true);
 
-    this.makeRotationTween(interval).start();
+    //this.makeRotationTween(interval).start();
   }
 
-  makeRotationTween (interval) {
-    // Tilt back and forth this sprite.
-    return this.game.add.tween(this)
-      .to({ angle: -720 }, interval, Phaser.Easing.Sinusoidal.In)
-      .to({ angle:  720 }, interval, Phaser.Easing.Sinusoidal.Out)
-      .loop(true);
-  }
+  //makeRotationTween (interval) {
+  //  // Tilt back and forth this sprite.
+  //  return this.game.add.tween(this)
+  //    .to({ angle: -720 }, interval, Phaser.Easing.Sinusoidal.In)
+  //    .to({ angle:  720 }, interval, Phaser.Easing.Sinusoidal.Out)
+  //    .loop(true);
+  //}
 
 }
 

@@ -31,11 +31,12 @@ export default {
       type: 'image',
       url: 'phaser.png'
     },
-   {
-      key: 'player',
-      type: 'image',
-      url: 'Player_01.png'
-    }
+    {
+      'key': 'player',
+      'type': 'atlasJSONHash',
+      'atlasURL': 'player_animated.json',
+      'textureURL': 'player_animated.png'
+    },
   ],
 
   // - Music and Sound effects ------------------------------------------------

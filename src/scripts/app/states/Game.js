@@ -26,7 +26,7 @@ export default class Game extends Phaser.State {
 	//this.player.angle += -0.1;
   }
 
-  makePlayer (x, y, speed = 4000) {
+  makePlayer (x, y, speed = 20) {
     return new Player(this.game, x, y, speed);
   }
 

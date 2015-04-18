@@ -43,8 +43,15 @@ class Player extends Phaser.Sprite {
         if(gameObject.scale.x < 0)
           gameObject.scale.x *= -1;
       }},
-      up: "UP",
-      down: "DOWN"
+      up:   { 
+        setDirection: function(gameObject){
+          gameObject.angle = -90;
+      }},
+      down:   { 
+        setDirection: function(gameObject){
+        if(gameObject.angle = 90)
+          gameObject.scale.y *= -1;
+      }}
     };
 
     this.direction = this.directionStates.right;
@@ -59,6 +66,13 @@ class Player extends Phaser.Sprite {
   else if(this.game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)){
         this.updateDirection(this.directionStates.right);
     }
+
+  if(this.game.input.keyboard.isDown(Phaser.Keyboard.UP)){
+        this.updateDirection(this.directionStates.up);
+    } 
+  else if(this.game.input.keyboard.isDown(Phaser.Keyboard.DOWN)){
+        this.updateDirection(this.directionStates.down);
+    }  
   }
 
   updateDirection(directionState){

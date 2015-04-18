@@ -30,6 +30,11 @@ export default {
       key: 'phaser',
       type: 'image',
       url: 'phaser.png'
+    },
+   {
+      key: 'player',
+      type: 'image',
+      url: 'Player_01.png'
     }
   ],
 

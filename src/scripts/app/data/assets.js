@@ -37,6 +37,16 @@ export default {
       'atlasURL': 'player_animated.json',
       'textureURL': 'player_animated.png'
     },
+    {
+      'key': 'waves',
+      'type': 'image',
+      'url': 'ocean_waves.png'
+    },
+    {
+      'key': 'floorTile',
+      'type': 'image',
+      'url': 'ocean_floor.png'
+    }
   ],
 
   // - Music and Sound effects ------------------------------------------------

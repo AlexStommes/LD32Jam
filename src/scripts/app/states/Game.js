@@ -11,12 +11,10 @@ import Player from '../objects/Player';
 export default class Game extends Phaser.State {
 
   create () {
-    this.game.stage.backgroundColor = "fff";
+    this.game.stage.backgroundColor = 'fff';
     this.makeGradient(this.game);
-    
-    //start of waves
-    
-    //end of waves
+    this.makeWaves(this.game);
+    this.makeFloor(this.game);
 
     let { centerX: x, centerY: y } = this.world;
     this.game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -61,7 +59,28 @@ export default class Game extends Phaser.State {
 
       myY += 10;
     }
-    // end robin's gradient
+  }
+
+  // waves!!!
+  makeWaves(game) {
+    var wavesx=0;
+    var wavesy=78;
+    for (var i = 0; i < 29; i++){
+      var wavesWidth=32;
+      wavesx = i*wavesWidth;
+      this.waves=this.add.image(wavesx,wavesy,'waves');
+    }
+  }
+
+  // sea floor!!!
+  makeFloor (game) {
+    var floorx=0;
+    var floory=568;
+    for (var spacer = 0; spacer < 29; spacer++){
+      var floorWidth=32;
+      floorx = spacer*floorWidth;
+      this.addFloor=this.add.image(floorx,floory,'floorTile');
+    }
   }
 
 }

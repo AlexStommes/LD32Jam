@@ -90,4 +90,4 @@ class Player extends Phaser.Sprite {
 }
 
 
-export default Player;
+exportdefault Player;

@@ -34,8 +34,8 @@ export default {
     {
       'key': 'player',
       'type': 'atlasJSONHash',
-      'atlasURL': 'player_animated.json',
-      'textureURL': 'player_animated.png'
+      'atlasURL': 'player_animated2.json',
+      'textureURL': 'player_animated2.png'
     },
     {
       'key': 'waves',

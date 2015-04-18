@@ -15,7 +15,8 @@
 
 class Player extends Phaser.Sprite {
 
-  constructor (game, x, y, interval = 4000) {
+
+  constructor (game, x, y, speed = 10) {
     // Remember to always use `super()` calls, whatever the class you're
     // extending from, using the same constructor arguments you'd specify for
     // regular Phaser classes.
@@ -25,23 +26,48 @@ class Player extends Phaser.Sprite {
     // `super.method(...)` call, passing the arguments required by that
     // overridden method.
 
+    this.speed = speed;
     this.anchor.set(0.5);
     
     this.animations.add('swim');
-    //this.animations.add('swim', Phaser.Animation.generateFrameNames('player', 0, 3, '', 4), 30, true);
     this.animations.play('swim', 8, true);
 
-    //this.makeRotationTween(interval).start();
+    this.directionStates = {
+      left: { 
+        setDirection: function(gameObject){
+        if(gameObject.scale.x > 0)
+          gameObject.scale.x *= -1;
+      }},
+      right:  { 
+        setDirection: function(gameObject){
+        if(gameObject.scale.x < 0)
+          gameObject.scale.x *= -1;
+      }},
+      up: "UP",
+      down: "DOWN"
+    };
+
+    this.direction = this.directionStates.right;
   }
 
-  //makeRotationTween (interval) {
-  //  // Tilt back and forth this sprite.
-  //  return this.game.add.tween(this)
-  //    .to({ angle: -720 }, interval, Phaser.Easing.Sinusoidal.In)
-  //    .to({ angle:  720 }, interval, Phaser.Easing.Sinusoidal.Out)
-  //    .loop(true);
-  //}
 
+  update() {
+
+  if (this.game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
+        this.updateDirection(this.directionStates.left);
+    }
+  else if(this.game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)){
+        this.updateDirection(this.directionStates.right);
+    }
+  }
+
+  updateDirection(directionState){
+  
+    if(this.direction != directionState){
+      this.direction = directionState;
+      this.direction.setDirection(this);
+    }
+  }
 }
 
 

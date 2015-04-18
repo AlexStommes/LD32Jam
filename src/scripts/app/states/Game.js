@@ -12,7 +12,8 @@ export default class Game extends Phaser.State {
 
   create () {
     this.game.world.setBounds(0, 0, 1800, 900);
-    this.game.stage.backgroundColor = "fff";
+    this.game.stage.backgroundColor = "85E0FF";
+    this.sky(this.game);
     this.makeGradient(this.game);
     this.makeWaves(this.game);
     this.makeFloor(this.game);
@@ -33,6 +34,24 @@ export default class Game extends Phaser.State {
 
   makePlayer (x, y, speed = 100) {
     return new Player(this.game, x, y, speed);
+  }
+
+  sky(game) {
+    var out = [];
+    var worldWidth = game.world.width;
+    var worldHeight = game.world.height;
+    var bmd = game.add.bitmapData(worldWidth, worldHeight);
+    bmd.addToWorld();
+
+    var myY = 0;
+
+    for (var i = 0; i < 20; i++)
+    {
+      var c = Phaser.Color.interpolateColor(0x85E0FF, 0xD6F5FF, 30, i);
+      bmd.rect(0, myY, worldWidth, myY+1, Phaser.Color.getWebRGB(c));
+      out.push(Phaser.Color.getWebRGB(c));
+      myY += 5;
+    }
   }
 
   makeGradient(game){

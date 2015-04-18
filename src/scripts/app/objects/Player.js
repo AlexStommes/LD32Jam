@@ -30,7 +30,10 @@ class Player extends Phaser.Sprite {
         this.anchor.set(0.5);
 
         this.game.physics.enable(this, Phaser.Physics.ARCADE);
-
+        
+        this.body.collideWorldBounds = true;
+        this.body.setSize(64, 32, 0, 0);
+      
         this.animations.add('swim');
         this.animations.play('swim', 8, true);
 
@@ -40,15 +43,13 @@ class Player extends Phaser.Sprite {
                     if (gameObject.scale.x > 0){
                       gameObject.scale.x *= -1;
                     }
-                    
                 }
             },
             right: {
                 setDirection: function(gameObject) {
                     if (gameObject.scale.x < 0) {
-                        gameObject.scale.x *= -1;
+                      gameObject.scale.x *= -1;
                     }
-                    
                 }
             },
             none: {}
@@ -74,6 +75,10 @@ class Player extends Phaser.Sprite {
         else if (this.game.input.keyboard.isDown(Phaser.Keyboard.DOWN)) {
             this.body.velocity.y = this.speed;
         }
+      if(this.body.y < this.game.seaLevel){
+        this.body.velocity.y = this.speed;
+      }
+      
     }
 
     updateDirection(directionState) {

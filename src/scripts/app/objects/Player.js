@@ -16,73 +16,74 @@
 class Player extends Phaser.Sprite {
 
 
-  constructor (game, x, y, speed = 10) {
-    // Remember to always use `super()` calls, whatever the class you're
-    // extending from, using the same constructor arguments you'd specify for
-    // regular Phaser classes.
-    super(game, x, y, 'player', 'Player01');
+    constructor(game, x, y, speed = 10) {
+        // Remember to always use `super()` calls, whatever the class you're
+        // extending from, using the same constructor arguments you'd specify for
+        // regular Phaser classes.
+        super(game, x, y, 'player', 'Player01');
 
-    // If you need to call `super` from overridden methods use the form
-    // `super.method(...)` call, passing the arguments required by that
-    // overridden method.
+        // If you need to call `super` from overridden methods use the form
+        // `super.method(...)` call, passing the arguments required by that
+        // overridden method.
 
-    this.speed = speed;
-    this.anchor.set(0.5);
-    
-    this.animations.add('swim');
-    this.animations.play('swim', 8, true);
+        this.speed = speed;
+        this.anchor.set(0.5);
 
-    this.directionStates = {
-      left: { 
-        setDirection: function(gameObject){
-        if(gameObject.scale.x > 0)
-          gameObject.scale.x *= -1;
-      }},
-      right:  { 
-        setDirection: function(gameObject){
-        if(gameObject.scale.x < 0)
-          gameObject.scale.x *= -1;
-      }},
-      up:   { 
-        setDirection: function(gameObject){
-          gameObject.angle = -90;
-      }},
-      down:   { 
-        setDirection: function(gameObject){
-        if(gameObject.angle = 90)
-          gameObject.scale.y *= -1;
-      }}
-    };
+        this.game.physics.enable(this, Phaser.Physics.ARCADE);
 
-    this.direction = this.directionStates.right;
-  }
+        this.animations.add('swim');
+        this.animations.play('swim', 8, true);
 
-
-  update() {
-
-  if (this.game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
-        this.updateDirection(this.directionStates.left);
-    }
-  else if(this.game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)){
-        this.updateDirection(this.directionStates.right);
+        this.directionStates = {
+            left: {
+                setDirection: function(gameObject) {
+                    if (gameObject.scale.x > 0){
+                      gameObject.scale.x *= -1;
+                    }
+                    
+                }
+            },
+            right: {
+                setDirection: function(gameObject) {
+                    if (gameObject.scale.x < 0) {
+                        gameObject.scale.x *= -1;
+                    }
+                    
+                }
+            },
+            none: {}
+        };
+        this.direction = this.directionStates.none;
     }
 
-  if(this.game.input.keyboard.isDown(Phaser.Keyboard.UP)){
-        this.updateDirection(this.directionStates.up);
-    } 
-  else if(this.game.input.keyboard.isDown(Phaser.Keyboard.DOWN)){
-        this.updateDirection(this.directionStates.down);
-    }  
-  }
+    update() {
+        this.body.velocity.x = 0;
+        this.body.velocity.y = 0;
+        if (this.game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
+            this.updateDirection(this.directionStates.left);
+            this.body.velocity.x = -this.speed;
+        } 
+        else if (this.game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
+            this.updateDirection(this.directionStates.right);
+             this.body.velocity.x = this.speed;
+        }
 
-  updateDirection(directionState){
-  
-    if(this.direction != directionState){
-      this.direction = directionState;
-      this.direction.setDirection(this);
+        if (this.game.input.keyboard.isDown(Phaser.Keyboard.UP)) {
+             this.body.velocity.y = -this.speed;
+        } 
+        else if (this.game.input.keyboard.isDown(Phaser.Keyboard.DOWN)) {
+            this.body.velocity.y = this.speed;
+        }
     }
-  }
+
+    updateDirection(directionState) {
+        if (this.direction != directionState) {
+            this.direction = directionState;
+            this.direction.setDirection(this);
+        }
+    }
 }
 
 
-export default Player;
+export
+default Player;

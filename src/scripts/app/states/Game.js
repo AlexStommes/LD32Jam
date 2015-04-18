@@ -42,14 +42,17 @@ export default class Game extends Phaser.State {
 
 
     let { centerX: x, centerY: y } = this.world;
-
+    this.game.physics.startSystem(Phaser.Physics.ARCADE);
     this.logo = this.add.image(x, y, 'phaser');
     this.logo.anchor.set(0.5);
 
     this.player = this.add.existing(this.makePlayer(x, y));
+    this.game.physics.enable(this.player, Phaser.Physics.ARCADE);
+    this.camera.target = this.player;
 
 	//this.player = this.add.image(x, y, 'player');
 	//this.logo.anchor.set(0.5);
+
   }
 
   update () {
@@ -57,7 +60,7 @@ export default class Game extends Phaser.State {
 	//this.player.angle += -0.1;
   }
 
-  makePlayer (x, y, speed = 20) {
+  makePlayer (x, y, speed = 100) {
     return new Player(this.game, x, y, speed);
   }
 

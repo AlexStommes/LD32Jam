@@ -25,36 +25,44 @@ class Player extends Phaser.Sprite {
     // If you need to call `super` from overridden methods use the form
     // `super.method(...)` call, passing the arguments required by that
     // overridden method.
-
+    
     this.speed = speed;
     this.anchor.set(0.5);
-    
+
+    this.game.physics.enable(this, Phaser.Physics.ARCADE);    
+
     this.animations.add('swim');
     this.animations.play('swim', 8, true);
 
     this.directionStates = {
       left: { 
         setDirection: function(gameObject){
+        gameObject.body.velocity.x = -gameObject.speed;
         if(gameObject.scale.x > 0)
+          gameObject.angle = 0;
           gameObject.scale.x *= -1;
       }},
       right:  { 
         setDirection: function(gameObject){
-        if(gameObject.scale.x < 0)
+        gameObject.body.velocity.x = gameObject.speed;
+        if(gameObject.scale.x < 0){
           gameObject.scale.x *= -1;
+      }
       }},
       up:   { 
-        setDirection: function(gameObject){
-          gameObject.angle = -90;
+        setDirection: function(gameObject, game){
+            gameObject.body.velocity.y = -gameObject.speed;
+            gameObject.body.angle = -90;
       }},
       down:   { 
         setDirection: function(gameObject){
-        if(gameObject.angle = 90)
-          gameObject.scale.y *= -1;
-      }}
+        gameObject.body.velocity.x = gameObject.speed;
+        gameObject.body.angle = 90;
+      }},
+      none: {}
     };
 
-    this.direction = this.directionStates.right;
+    this.direction = this.directionStates.none;
   }
 
 
@@ -76,7 +84,6 @@ class Player extends Phaser.Sprite {
   }
 
   updateDirection(directionState){
-  
     if(this.direction != directionState){
       this.direction = directionState;
       this.direction.setDirection(this);

@@ -11,11 +11,12 @@ export default class Game extends Phaser.State {
 
   create () {
     let { centerX: x, centerY: y } = this.world;
-
+    this.game.physics.startSystem(Phaser.Physics.ARCADE);
     this.logo = this.add.image(x, y, 'phaser');
     this.logo.anchor.set(0.5);
 	
     this.player = this.add.existing(this.makePlayer(x, y));
+    this.game.physics.enable(this.player, Phaser.Physics.ARCADE);
 
 	//this.player = this.add.image(x, y, 'player');
 	//this.logo.anchor.set(0.5);

@@ -14,6 +14,7 @@ export default class Game extends Phaser.State {
     this.game.world.setBounds(0, 0, 1800, 900);
     this.game.stage.backgroundColor = "85E0FF";
     this.sky(this.game);
+    this.game.seaLevel = 100;
     this.makeGradient(this.game);
     this.makeWaves(this.game);
     this.makeFloor(this.game);
@@ -32,7 +33,7 @@ export default class Game extends Phaser.State {
     this.logo.angle += 0.1;
   }
 
-  makePlayer (x, y, speed = 100) {
+  makePlayer (x, y, speed = 120) {
     return new Player(this.game, x, y, speed);
   }
 
@@ -62,7 +63,7 @@ export default class Game extends Phaser.State {
     var bmd = game.add.bitmapData(worldWidth, worldHeight);
     bmd.addToWorld();
     // start of horizontal gradient
-    var myY = 100;
+    var myY = game.seaLevel;
 
     for (var i = 0; i < worldHeight; i++)
     {

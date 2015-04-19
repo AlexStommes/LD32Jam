@@ -16,6 +16,7 @@ class Player extends Phaser.Sprite {
         this.animations.play('swim', 8, true);
   
         this.hasGarbage = false;
+        this.canFireCount = 0;
         this.health = 5;
         this.hudText = this.game.add.text(20, 500, '', { font: "12pt Courier", fill: "#19cb65", stroke: "#119f4e", strokeThickness: 1 });
         this.hudText.fixedToCamera = true;
@@ -44,6 +45,7 @@ class Player extends Phaser.Sprite {
     }
 
     update() {
+      this.canFireCount += 1;
       // Input
       this.body.velocity.x = 0;
       this.body.velocity.y = 0;
@@ -65,9 +67,10 @@ class Player extends Phaser.Sprite {
       if(this.body.y < this.game.seaLevel){
         this.body.velocity.y = this.speed;
       }
-      if(this.hasGarbage && this.game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)){
+      if(this.hasGarbage && this.canFireCount > 25 && this.game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)){
         console.log("firing garbage");
         this.game.sound.play('shoot');
+        this.canFireCount = 0;
         this.hasGarbage = false;
         this.game.firedGarbage.push(
           this.game.add.existing(
@@ -89,6 +92,7 @@ class Player extends Phaser.Sprite {
       if(this.hasGarbage === false){
         this.game.sound.play('eat');
         this.hasGarbage = true;
+        this.canFireCount = 0;        
       } else {
         this.health -= 1;
         this.game.sound.play('hit');

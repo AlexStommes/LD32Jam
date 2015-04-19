@@ -36,7 +36,7 @@ export default class Preload extends Phaser.State {
   update () {
     // Wait until all sound effects have been decoded into memory.
     if (this.assetsReady && this.allSoundsDecoded) {
-      this.state.start('Game');
+      this.state.start('Menu');
     }
   }
 

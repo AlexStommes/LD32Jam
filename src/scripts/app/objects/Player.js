@@ -63,6 +63,7 @@ class Player extends Phaser.Sprite {
       }
       if(this.hasGarbage && this.game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)){
         console.log("firing garbage");
+        this.game.sound.play('shoot');
         this.hasGarbage = false;
         this.game.firedGarbage.push(
           this.game.add.existing(
@@ -80,7 +81,12 @@ class Player extends Phaser.Sprite {
     collisionHandler(player, garbage){
       console.log("Collision");
       garbage.kill();
-      this.hasGarbage = true;
+      if(this.hasGarbage === false){
+        this.game.sound.play('eat');
+        this.hasGarbage = true;
+      } else {
+        this.game.sound.play('hit');
+      }
       this.garbagePointer = garbage;
     }
   

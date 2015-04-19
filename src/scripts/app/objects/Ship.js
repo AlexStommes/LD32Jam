@@ -9,7 +9,8 @@ class Ship extends Phaser.Sprite {
         this.world.y = y;
         this.speed = speed;
         this.anchor.set(0.5);
-
+        this.explosionKeys = ['explosion01', 'explosion02', 'explosion03'];
+        this.explosionPointer = 0;
         this.game.physics.enable(this, Phaser.Physics.ARCADE);
         
         this.body.collideWorldBounds = true;
@@ -60,6 +61,8 @@ class Ship extends Phaser.Sprite {
     
     handleGarbageCollision(ship, garbage){
         console.log("ship is hit!");
+        this.game.sound.play(this.explosionKeys[this.explosionPointer]);
+        this.explosionPointer += 1;
         garbage.kill();
         this.health -= 1;
         

@@ -15,9 +15,14 @@ class Ship extends Phaser.Sprite {
         this.body.collideWorldBounds = true;
         this.body.setSize(200, 143, 0, 0);
         this.body.velocity.x = this.speed;
+
+        this.health = 3;
     }
 
     update() {
+
+        if(this.health === 0) return;
+
         // Detect collisions
         for(var garbage of this.game.firedGarbage){
          this.game.physics.arcade.collide(this, garbage, this.handleGarbageCollision, null, this);
@@ -56,6 +61,11 @@ class Ship extends Phaser.Sprite {
     handleGarbageCollision(ship, garbage){
         console.log("ship is hit!");
         garbage.kill();
+        this.health -= 1;
+        
+        if(this.health === 0){
+            this.kill();
+        }
     }
 }
 

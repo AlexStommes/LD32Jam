@@ -36,8 +36,7 @@ export default class Game extends Phaser.State {
     this.camera.follow(this.player);
     this.game.garbageCollection = [];
     this.game.firedGarbage = [];
-    //this.ship = this.add.existing(this.makeShip(x, this.game.seaLevel - 143/2, -80));
-    this.ship = this.add.existing(this.makeBossShip(this.game.world.width/2, this.game.seaLevel - 141/2, -80));
+    this.ship = this.add.existing(this.makeShip(x, this.game.seaLevel - 143/2, -80));
   }
 
   update () {

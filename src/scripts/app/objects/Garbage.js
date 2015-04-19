@@ -14,11 +14,15 @@ class Garbage extends Phaser.Sprite {
         this.body.collideWorldBounds = false;
         this.body.setSize(32, 32, 0, 0);
         this.body.velocity.y = this.speed;
+        this.body.checkWorldBounds = true;
         this.garbaged = false;
     }
 
     update() {
         this.angle += 3;
+        if(this.world.y > this.game.world.height){
+            this.destroy();
+        }
     }
 }
 

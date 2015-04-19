@@ -34,9 +34,14 @@ class Ship extends Phaser.Sprite {
                 this.scale.x *= -1;
             }
         }
-        if(this.garbaged === false){
-            this.garbaged = true;
-                this.game.add.existing(new Garbage(this.game, this.world.x, this.world.y, 80));
+        var rnd = this.game.rnd.integerInRange(0, 60);
+        if(rnd === 27){
+            var rndSpeed = this.game.rnd.integerInRange(70, 110);
+            this.game.garbageCollection.push(
+                this.game.add.existing(
+                    new Garbage(this.game, this.world.x, this.world.y, rndSpeed)
+                )
+            );    
         }
     }
 }

@@ -28,7 +28,7 @@ export default class Game extends Phaser.State {
     this.player = this.add.existing(this.makePlayer(x, y));
     this.game.physics.enable(this.player, Phaser.Physics.ARCADE);
     this.camera.follow(this.player);
-
+    this.game.garbageCollection = [];
     this.ship = this.add.existing(this.makeShip(x, this.game.seaLevel - 143/2, -80));
   }
 

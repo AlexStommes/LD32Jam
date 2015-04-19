@@ -38,6 +38,12 @@ export default {
       'textureURL': 'player_animated2.png'
     },
     {
+      'key': 'trash',
+      'type': 'atlasJSONHash',
+      'atlasURL': 'trash.json',
+      'textureURL': 'trash.png'
+    },
+    {
       'key': 'waves',
       'type': 'image',
       'url': 'ocean_waves.png'

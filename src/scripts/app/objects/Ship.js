@@ -1,3 +1,5 @@
+import Garbage from '../objects/Garbage';
+
 class Ship extends Phaser.Sprite {
 
     constructor(game, x, y, speed = 80) {
@@ -13,6 +15,7 @@ class Ship extends Phaser.Sprite {
         this.body.collideWorldBounds = false;
         this.body.setSize(200, 143, 0, 0);
         this.body.velocity.x = this.speed;
+        this.garbaged = false;
     }
 
     update() {
@@ -30,6 +33,10 @@ class Ship extends Phaser.Sprite {
                 this.world.x = 401; 
                 this.scale.x *= -1;
             }
+        }
+        if(this.garbaged === false){
+            this.garbaged = true;
+                this.game.add.existing(new Garbage(this.game, this.world.x, this.world.y, 80));
         }
     }
 }

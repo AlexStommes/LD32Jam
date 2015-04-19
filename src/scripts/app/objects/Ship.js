@@ -18,7 +18,7 @@ class Ship extends Phaser.Sprite {
         this.body.setSize(200, 143, 0, 0);
         this.body.velocity.x = this.speed;
 
-        this.health = 1;
+        this.health = 3;
     }
 
     update() {

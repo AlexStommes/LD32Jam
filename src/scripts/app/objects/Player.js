@@ -71,7 +71,7 @@ class Player extends Phaser.Sprite {
         this.hasGarbage = false;
         this.game.firedGarbage.push(
           this.game.add.existing(
-            new Garbage(this.game, this.world.x, this.world.y, -220)
+            new Garbage(this.game, this.world.x, this.world.y,this.garbagePointer.garbageKey, -220)
           )
         );
        this.garbagePointer = null;

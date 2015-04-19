@@ -1,9 +1,9 @@
 
 class Garbage extends Phaser.Sprite {
 
-    constructor(game, x, y, speed = 80) {
-        super(game, x, y, 'trash', 'trash01');
-
+    constructor(game, x, y, garbageKey, speed = 80) {
+        super(game, x, y, 'trash', garbageKey);
+        this.garbageKey = garbageKey;
         this.world.x = x;
         this.world.y = y;
         this.speed = speed;

@@ -16,6 +16,7 @@ export default class Game extends Phaser.State {
     this.game.stage.backgroundColor = "85E0FF";
     this.sky(this.game);
     this.game.seaLevel = 160;
+    this.game.garbageKeys = ['trash01', 'trash02', 'trash03', 'trash04', 'trash05', 'trash06', 'trash07'];
     this.makeGradient(this.game);
     this.waves = this.makeWaves(this.game);
     this.makeFloor(this.game);

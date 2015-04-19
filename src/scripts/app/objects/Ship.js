@@ -50,10 +50,12 @@ class Ship extends Phaser.Sprite {
         // Generate garbage
         var rnd = this.game.rnd.integerInRange(0, 60);
         if(rnd === 27){
+            var rndG = this.game.rnd.integerInRange(0, this.game.garbageKeys.length);
+            var garbageKey = this.game.garbageKeys[rndG];    
             var rndSpeed = this.game.rnd.integerInRange(70, 110);
             this.game.garbageCollection.push(
                 this.game.add.existing(
-                    new Garbage(this.game, this.world.x, this.world.y, rndSpeed)
+                    new Garbage(this.game, this.world.x, this.world.y, garbageKey, rndSpeed)
                 )
             );    
         }

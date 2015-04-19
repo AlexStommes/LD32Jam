@@ -1,14 +1,16 @@
 import Garbage from '../objects/Garbage';
-import FastShip from '../objects/FastShip';
 
-class Ship extends Phaser.Sprite {
+class FastShip extends Phaser.Sprite {
 
-    constructor(game, x, y, speed = 80) {
-        super(game, x, y, 'ship');
+    constructor(game, x, y, speed = 130) {
+        super(game, x, y, 'fastship');
 
         this.world.x = x;
         this.world.y = y;
         this.speed = speed;
+        if(this.speed > 0){
+            this.scale.x *= -1;
+        }
         this.anchor.set(0.5);
         this.explosionKeys = ['explosion01', 'explosion02', 'explosion03'];
         this.explosionPointer = 0;
@@ -49,7 +51,7 @@ class Ship extends Phaser.Sprite {
         }
 
         // Generate garbage
-        var rnd = this.game.rnd.integerInRange(0, 60);
+        var rnd = this.game.rnd.integerInRange(0, 30);
         if(rnd === 27){
             var rndG = this.game.rnd.integerInRange(0, this.game.garbageKeys.length);
             var garbageKey = this.game.garbageKeys[rndG];    
@@ -71,16 +73,9 @@ class Ship extends Phaser.Sprite {
         
         if(this.health === 0){
             this.kill();
-            this.game.shipStage += 1;
-            // add two small fast ships
-             this.ship = this.game.add.existing(this.makeFastShip(500, this.game.seaLevel - 40, -130));
-             this.ship = this.game.add.existing(this.makeFastShip(1200, this.game.seaLevel - 40, 130));
         }
-    }
-    makeFastShip(x, y, speed){
-        return new FastShip(this.game, x, y, speed);
     }
 }
 
 
-export default Ship;
+export default FastShip;

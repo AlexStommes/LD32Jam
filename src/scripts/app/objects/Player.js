@@ -16,7 +16,7 @@ class Player extends Phaser.Sprite {
         this.animations.play('swim', 8, true);
   
         this.hasGarbage = false;
-        this.health = 3;
+        this.health = 5;
         this.hudText = this.game.add.text(20, 550, '', { font: "12pt Courier", fill: "#19cb65", stroke: "#119f4e", strokeThickness: 1 });
         this.hudText.fixedToCamera = true;
         this.hudText.setText(this.makeHudString());

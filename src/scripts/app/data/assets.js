@@ -57,6 +57,11 @@ export default {
       'key': 'ship',
       'type': 'image',
       'url': 'boat01.png'
+    },
+    {
+      'key': 'fastship',
+      'type': 'image',
+      'url': 'boat02.png'
     }
   ],
 

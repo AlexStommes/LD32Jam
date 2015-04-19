@@ -17,6 +17,8 @@ export default class Game extends Phaser.State {
     this.sky(this.game);
     this.game.seaLevel = 160;
     this.game.garbageKeys = ['trash01', 'trash02', 'trash03', 'trash04', 'trash05', 'trash06', 'trash07'];
+    this.game.shipStage = 0;
+    this.game.gameOver = false;
     this.makeGradient(this.game);
     this.waves = this.makeWaves(this.game);
     this.makeFloor(this.game);
@@ -36,7 +38,7 @@ export default class Game extends Phaser.State {
   }
 
   update () {
-    if(this.ship.health === 0 || this.player.health === 0){
+    if(this.gameOver || this.player.health === 0){
        this.music.stop();
        this.state.start('Credits');
     }

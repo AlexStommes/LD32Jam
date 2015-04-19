@@ -1,14 +1,16 @@
 import Garbage from '../objects/Garbage';
-import FastShip from '../objects/FastShip';
 
-class Ship extends Phaser.Sprite {
+class BossShip extends Phaser.Sprite {
 
-    constructor(game, x, y, speed = 80) {
-        super(game, x, y, 'ship');
+    constructor(game, x, y, speed = 130) {
+        super(game, x, y, 'mothership');
 
         this.world.x = x;
         this.world.y = y;
         this.speed = speed;
+        if(this.speed > 0){
+            this.scale.x *= -1;
+        }
         this.anchor.set(0.5);
         this.explosionKeys = ['explosion01', 'explosion02', 'explosion03'];
         this.explosionPointer = 0;
@@ -18,7 +20,7 @@ class Ship extends Phaser.Sprite {
         this.body.setSize(200, 143, 0, 0);
         this.body.velocity.x = this.speed;
 
-        this.health = 1;
+        this.health = 9;
     }
 
     update() {
@@ -47,19 +49,10 @@ class Ship extends Phaser.Sprite {
                 this.scale.x *= -1;
             }
         }
+        this.generateGarbage(-120);
+        this.generateGarbage(0);
+        this.generateGarbage(120)
 
-        // Generate garbage
-        var rnd = this.game.rnd.integerInRange(0, 60);
-        if(rnd === 27){
-            var rndG = this.game.rnd.integerInRange(0, this.game.garbageKeys.length);
-            var garbageKey = this.game.garbageKeys[rndG];    
-            var rndSpeed = this.game.rnd.integerInRange(70, 110);
-            this.game.garbageCollection.push(
-                this.game.add.existing(
-                    new Garbage(this.game, this.world.x, this.world.y, garbageKey, rndSpeed)
-                )
-            );    
-        }
     }
     
     handleGarbageCollision(ship, garbage){
@@ -71,16 +64,25 @@ class Ship extends Phaser.Sprite {
         
         if(this.health === 0){
             this.kill();
-            this.game.shipStage += 1;
-            // add two small fast ships
-             this.ship = this.game.add.existing(this.makeFastShip(500, this.game.seaLevel - 40, -130));
-             this.ship = this.game.add.existing(this.makeFastShip(1200, this.game.seaLevel - 40, 130));
+            this.game.gameState = 'win';
         }
     }
-    makeFastShip(x, y, speed){
-        return new FastShip(this.game, x, y, speed);
+
+    generateGarbage(offsetX){
+        var rnd = this.game.rnd.integerInRange(10, 30);
+        if(rnd === 27){
+            var rndG = this.game.rnd.integerInRange(0, this.game.garbageKeys.length);
+            var garbageKey = this.game.garbageKeys[rndG];    
+            var rndSpeed = this.game.rnd.integerInRange(70, 110);
+            this.game.garbageCollection.push(
+                this.game.add.existing(
+                    new Garbage(this.game, this.world.x+offsetX, this.world.y, garbageKey, rndSpeed)
+                )
+            );    
+        }
+        
     }
 }
 
 
-export default Ship;
+export default BossShip;

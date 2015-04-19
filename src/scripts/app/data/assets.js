@@ -62,6 +62,11 @@ export default {
       'key': 'fastship',
       'type': 'image',
       'url': 'boat02.png'
+    },
+     {
+      'key': 'mothership',
+      'type': 'image',
+      'url': 'boat03.png'
     }
   ],
 

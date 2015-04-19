@@ -73,6 +73,7 @@ class FastShip extends Phaser.Sprite {
         
         if(this.health === 0){
             this.kill();
+            this.game.fastShipsKilled += 1;
         }
     }
 }

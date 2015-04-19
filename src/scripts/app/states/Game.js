@@ -8,6 +8,7 @@
 
 import Player from '../objects/Player';
 import Ship from '../objects/Ship';
+import BossShip from '../objects/BossShip';
 
 export default class Game extends Phaser.State {
 
@@ -18,7 +19,8 @@ export default class Game extends Phaser.State {
     this.game.seaLevel = 160;
     this.game.garbageKeys = ['trash01', 'trash02', 'trash03', 'trash04', 'trash05', 'trash06', 'trash07'];
     this.game.shipStage = 0;
-    this.game.gameOver = false;
+    this.game.fastShipsKilled = 0;
+    this.game.gameState = 'playing';
     this.makeGradient(this.game);
     this.waves = this.makeWaves(this.game);
     this.makeFloor(this.game);
@@ -34,13 +36,18 @@ export default class Game extends Phaser.State {
     this.camera.follow(this.player);
     this.game.garbageCollection = [];
     this.game.firedGarbage = [];
-    this.ship = this.add.existing(this.makeShip(x, this.game.seaLevel - 143/2, -80));
+    //this.ship = this.add.existing(this.makeShip(x, this.game.seaLevel - 143/2, -80));
+    this.ship = this.add.existing(this.makeBossShip(this.game.world.width/2, this.game.seaLevel - 141/2, -80));
   }
 
   update () {
-    if(this.gameOver || this.player.health === 0){
+    if(this.game.gameState === 'win' || this.player.health === 0){
        this.music.stop();
        this.state.start('Credits');
+    }
+    if(this.game.fastShipsKilled === 2){
+      this.game.fastShipsKilled = 0;
+      this.ship = this.add.existing(this.makeBossShip(this.game.world.width/2, this.game.seaLevel - 141/2, -80));
     }
     this.logo.angle += 0.1;
     if (this.waves.x<32){
@@ -65,6 +72,9 @@ export default class Game extends Phaser.State {
 
   makeShip (x, y, speed = -80) {
     return new Ship(this.game, x, y, speed);
+  }  
+  makeBossShip (x, y, speed = -80) {
+    return new BossShip(this.game, x, y, speed);
   }
 
   sky(game) {

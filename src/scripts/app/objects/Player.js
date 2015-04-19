@@ -35,29 +35,38 @@ class Player extends Phaser.Sprite {
     }
 
     update() {
-        this.body.velocity.x = 0;
-        this.body.velocity.y = 0;
-        if (this.game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
-            this.updateDirection(this.directionStates.left);
-            this.body.velocity.x = -this.speed;
-        } 
-        else if (this.game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
-            this.updateDirection(this.directionStates.right);
-             this.body.velocity.x = this.speed;
-        }
+      // Input
+      this.body.velocity.x = 0;
+      this.body.velocity.y = 0;
+      if (this.game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
+          this.updateDirection(this.directionStates.left);
+          this.body.velocity.x = -this.speed;
+      } 
+      else if (this.game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
+          this.updateDirection(this.directionStates.right);
+           this.body.velocity.x = this.speed;
+      }
 
-        if (this.game.input.keyboard.isDown(Phaser.Keyboard.UP)) {
-             this.body.velocity.y = -this.speed;
-        } 
-        else if (this.game.input.keyboard.isDown(Phaser.Keyboard.DOWN)) {
-            this.body.velocity.y = this.speed;
-        }
+      if (this.game.input.keyboard.isDown(Phaser.Keyboard.UP)) {
+           this.body.velocity.y = -this.speed;
+      } 
+      else if (this.game.input.keyboard.isDown(Phaser.Keyboard.DOWN)) {
+          this.body.velocity.y = this.speed;
+      }
       if(this.body.y < this.game.seaLevel){
         this.body.velocity.y = this.speed;
       }
+      // Collisions
+      for(var garbage of this.game.garbageCollection){
+         this.game.physics.arcade.collide(this, garbage, this.collisionHandler, null, this);
+      }
       
     }
-
+    collisionHandler(player, garbage){
+      console.log("Collision");
+      garbage.kill();
+    }
+  
     updateDirection(directionState) {
         if (this.direction != directionState) {
             this.direction = directionState;

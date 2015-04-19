@@ -17,6 +17,8 @@ class Player extends Phaser.Sprite {
   
         this.hasGarbage = false;
 
+        this.garbagePointer;
+
         this.directionStates = {
             left: {
                 setDirection: function(gameObject) {
@@ -67,6 +69,7 @@ class Player extends Phaser.Sprite {
             new Garbage(this.game, this.world.x, this.world.y, -220)
           )
         );
+       this.garbagePointer = null;
       }
 
       // Collisions
@@ -78,6 +81,7 @@ class Player extends Phaser.Sprite {
       console.log("Collision");
       garbage.kill();
       this.hasGarbage = true;
+      this.garbagePointer = garbage;
     }
   
     updateDirection(directionState) {

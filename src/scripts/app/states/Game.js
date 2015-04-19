@@ -36,6 +36,7 @@ export default class Game extends Phaser.State {
 
   update () {
     if(this.ship.health === 0){
+       this.music.stop();
        this.state.start('Credits');
     }
     this.logo.angle += 0.1;

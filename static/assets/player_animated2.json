@@ -1,6 +1,14 @@
 {"frames": {
 
-"Player02.png":
+"Player01":
+{
+	"frame": {"x":63,"y":23,"w":60,"h":26},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":2,"w":60,"h":26},
+	"sourceSize": {"w":64,"h":32}
+},
+"Player02":
 {
 	"frame": {"x":63,"y":2,"w":61,"h":19},
 	"rotated": false,
@@ -8,7 +16,7 @@
 	"spriteSourceSize": {"x":2,"y":6,"w":61,"h":19},
 	"sourceSize": {"w":64,"h":32}
 },
-"Player03.png":
+"Player03":
 {
 	"frame": {"x":2,"y":2,"w":59,"h":30},
 	"rotated": false,
@@ -16,12 +24,12 @@
 	"spriteSourceSize": {"x":3,"y":0,"w":59,"h":30},
 	"sourceSize": {"w":64,"h":32}
 },
-"Player01.png":
+"Player04":
 {
-	"frame": {"x":63,"y":23,"w":60,"h":26},
+	"frame": {"x":63,"y":2,"w":61,"h":19},
 	"rotated": false,
 	"trimmed": true,
-	"spriteSourceSize": {"x":1,"y":2,"w":60,"h":26},
+	"spriteSourceSize": {"x":2,"y":6,"w":61,"h":19},
 	"sourceSize": {"w":64,"h":32}
 }},
 "meta": {

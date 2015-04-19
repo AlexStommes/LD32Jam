@@ -67,6 +67,21 @@ export default {
       'key': 'mothership',
       'type': 'image',
       'url': 'boat03.png'
+    },
+    {
+      'key': 'menu',
+      'type': 'image',
+      'url': 'start_screen.png'
+    },
+    {
+      'key': 'fail',
+      'type': 'image',
+      'url': 'fail_screen.png'
+    },
+    {
+      'key': 'win',
+      'type': 'image',
+      'url': 'win_screen.png'
     }
   ],
 

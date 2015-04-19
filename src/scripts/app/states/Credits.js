@@ -20,7 +20,6 @@ export default class Credits extends Phaser.State {
       .start();
   }
 
-
   update(){
     if (this.game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
       this.state.start('Game'); 

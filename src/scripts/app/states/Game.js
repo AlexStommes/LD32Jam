@@ -41,9 +41,13 @@ export default class Game extends Phaser.State {
   }
 
   update () {
-    if(this.game.gameState === 'win' || this.player.health === 0){
+    if(this.game.gameState === 'win'){
        this.music.stop();
-       this.state.start('Credits');
+       this.state.start('Win');
+    } 
+    if(this.player.health === 0){
+       this.music.stop();
+       this.state.start('Fail');
     }
     if(this.game.fastShipsKilled === 2){
       this.game.fastShipsKilled = 0;

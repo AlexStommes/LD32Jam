@@ -12,13 +12,19 @@ class Ship extends Phaser.Sprite {
 
         this.game.physics.enable(this, Phaser.Physics.ARCADE);
         
-        this.body.collideWorldBounds = false;
+        this.body.collideWorldBounds = true;
         this.body.setSize(200, 143, 0, 0);
         this.body.velocity.x = this.speed;
-        this.garbaged = false;
     }
 
     update() {
+        // Detect collisions
+        for(var garbage of this.game.firedGarbage){
+         this.game.physics.arcade.collide(this, garbage, this.handleGarbageCollision, null, this);
+        }
+        // Movement
+        this.body.velocity.y = 0;    
+
         if(this.body.velocity.x > 0){
             if(this.world.x > this.game.world.width - 400){
                 this.body.velocity.x = -Math.abs(this.speed);
@@ -34,6 +40,8 @@ class Ship extends Phaser.Sprite {
                 this.scale.x *= -1;
             }
         }
+
+        // Generate garbage
         var rnd = this.game.rnd.integerInRange(0, 60);
         if(rnd === 27){
             var rndSpeed = this.game.rnd.integerInRange(70, 110);
@@ -43,6 +51,11 @@ class Ship extends Phaser.Sprite {
                 )
             );    
         }
+    }
+    
+    handleGarbageCollision(ship, garbage){
+        console.log("ship is hit!");
+        garbage.kill();
     }
 }
 

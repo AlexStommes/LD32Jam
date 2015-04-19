@@ -1,3 +1,4 @@
+import Garbage from '../objects/Garbage';
 class Player extends Phaser.Sprite {
 
     constructor(game, x, y, speed = 10) {
@@ -13,6 +14,8 @@ class Player extends Phaser.Sprite {
       
         this.animations.add('swim');
         this.animations.play('swim', 8, true);
+  
+        this.hasGarbage = false;
 
         this.directionStates = {
             left: {
@@ -56,15 +59,25 @@ class Player extends Phaser.Sprite {
       if(this.body.y < this.game.seaLevel){
         this.body.velocity.y = this.speed;
       }
+      if(this.hasGarbage && this.game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)){
+        console.log("firing garbage");
+        this.hasGarbage = false;
+        this.game.firedGarbage.push(
+          this.game.add.existing(
+            new Garbage(this.game, this.world.x, this.world.y, -220)
+          )
+        );
+      }
+
       // Collisions
       for(var garbage of this.game.garbageCollection){
          this.game.physics.arcade.collide(this, garbage, this.collisionHandler, null, this);
       }
-      
     }
     collisionHandler(player, garbage){
       console.log("Collision");
       garbage.kill();
+      this.hasGarbage = true;
     }
   
     updateDirection(directionState) {

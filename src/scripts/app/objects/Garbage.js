@@ -23,6 +23,9 @@ class Garbage extends Phaser.Sprite {
         if(this.world.y > this.game.world.height){
             this.destroy();
         }
+        if(this.world.y < 0){
+            this.destroy();
+        } 
     }
 }
 

@@ -37,7 +37,7 @@ export default class Game extends Phaser.State {
     this.camera.follow(this.player);
     this.game.garbageCollection = [];
     this.game.firedGarbage = [];
-    //this.ship = this.add.existing(this.makeShip(x, this.game.seaLevel - 143/2, -80));
+    this.game.ship = this.game.add.existing(this.makeShip(x, this.game.seaLevel - 143/2, -80));
   }
 
   update () {
@@ -47,7 +47,7 @@ export default class Game extends Phaser.State {
     }
     if(this.game.fastShipsKilled === 2){
       this.game.fastShipsKilled = 0;
-      this.bossShip = this.game.add.existing(this.makeBossShip(this.game.world.width/2, this.game.seaLevel - 75, -80));
+      this.game.bossShip = this.game.add.existing(this.makeBossShip(this.game.world.width/2, this.game.seaLevel - 75, -80));
     }
     this.logo.angle += 0.1;
     if (this.waves.x<32){

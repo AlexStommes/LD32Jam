@@ -6,8 +6,6 @@ class Ship extends Phaser.Sprite {
     constructor(game, x, y, speed = 80) {
         super(game, x, y, 'ship');
 
-        this.world.x = x;
-        this.world.y = y;
         this.speed = speed;
         this.anchor.set(0.5);
         this.explosionKeys = ['explosion01', 'explosion02', 'explosion03'];
@@ -73,7 +71,7 @@ class Ship extends Phaser.Sprite {
             this.kill();
             this.game.shipStage += 1;
             // add two small fast ships
-             this.game.shipOne = this.game.add.existing(this.makeFastShip(500, this.game.seaLevel - 40, -130));
+             this.game.shipOne = this.game.add.existing(this.makeFastShip(900, this.game.seaLevel - 40, -130));
              this.game.shipTwo = this.game.add.existing(this.makeFastShip(1200, this.game.seaLevel - 40, 130));
         }
     }

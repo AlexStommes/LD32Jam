@@ -5,8 +5,6 @@ class FastShip extends Phaser.Sprite {
     constructor(game, x, y, speed = 130) {
         super(game, x, y, 'fastship');
 
-        this.world.x = x;
-        this.world.y = y;
         this.speed = speed;
         if(this.speed > 0){
             this.scale.x *= -1;

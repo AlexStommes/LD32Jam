@@ -5,8 +5,6 @@ class BossShip extends Phaser.Sprite {
     constructor(game, x, y, speed = 130) {
         super(game, x, y, 'mothership');
 
-        this.world.x = x;
-        this.world.y = y;
         this.speed = speed;
         if(this.speed > 0){
             this.scale.x *= -1;

@@ -19,6 +19,7 @@ export default class Game extends Phaser.State {
     this.makeGradient(this.game);
     this.waves = this.makeWaves(this.game);
     this.makeFloor(this.game);
+    this.music = this.game.sound.play('music', 0.8, true);
 
     let { centerX: x, centerY: y } = this.world;
     this.game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -43,6 +44,13 @@ export default class Game extends Phaser.State {
     }
     if (this.waves.x>=32){
       this.waves.x = 0;
+    }
+
+    if (this.game.input.keyboard.isDown(Phaser.Keyboard.M)) {
+      this.music.pause();
+    }    
+    if(this.game.input.keyboard.isDown(Phaser.Keyboard.U)){
+      this.music.resume();
     }
   }
 

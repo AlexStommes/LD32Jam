@@ -64,6 +64,7 @@ export default class Preload extends Phaser.State {
       this.load.pack('audio', null, assets);
       this.sound.onSoundDecode.add((key) => this.dequeueDecodedSound(key));
     }
+      this.game.load.audio('music', ['music.mp3']);
   }
 
   dequeueDecodedSound (key) {

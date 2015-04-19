@@ -1,30 +1,8 @@
-/*
- * Player
- * ============================================================================
- *
- *
- * This is an example prefab, demonstrating how you could extend a Phaser
- * class to make your own game objects. You can extend from other Phaser
- * object classes too, not just Sprites. Refer to the `ActionsMenu` example
- * for a more advanced prefab.
- *
- * Here, I'm using a tween, instead of rotating the logo by updating its
- * angle, but you can do whatever you creativity demand you, so try that!
- */
-
-
+import Garbage from '../objects/Garbage';
 class Player extends Phaser.Sprite {
 
-
     constructor(game, x, y, speed = 10) {
-        // Remember to always use `super()` calls, whatever the class you're
-        // extending from, using the same constructor arguments you'd specify for
-        // regular Phaser classes.
         super(game, x, y, 'player', 'Player01');
-
-        // If you need to call `super` from overridden methods use the form
-        // `super.method(...)` call, passing the arguments required by that
-        // overridden method.
 
         this.speed = speed;
         this.anchor.set(0.5);
@@ -36,6 +14,10 @@ class Player extends Phaser.Sprite {
       
         this.animations.add('swim');
         this.animations.play('swim', 8, true);
+  
+        this.hasGarbage = false;
+
+        this.garbagePointer;
 
         this.directionStates = {
             left: {
@@ -58,29 +40,50 @@ class Player extends Phaser.Sprite {
     }
 
     update() {
-        this.body.velocity.x = 0;
-        this.body.velocity.y = 0;
-        if (this.game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
-            this.updateDirection(this.directionStates.left);
-            this.body.velocity.x = -this.speed;
-        } 
-        else if (this.game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
-            this.updateDirection(this.directionStates.right);
-             this.body.velocity.x = this.speed;
-        }
+      // Input
+      this.body.velocity.x = 0;
+      this.body.velocity.y = 0;
+      if (this.game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
+          this.updateDirection(this.directionStates.left);
+          this.body.velocity.x = -this.speed;
+      } 
+      else if (this.game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
+          this.updateDirection(this.directionStates.right);
+           this.body.velocity.x = this.speed;
+      }
 
-        if (this.game.input.keyboard.isDown(Phaser.Keyboard.UP)) {
-             this.body.velocity.y = -this.speed;
-        } 
-        else if (this.game.input.keyboard.isDown(Phaser.Keyboard.DOWN)) {
-            this.body.velocity.y = this.speed;
-        }
+      if (this.game.input.keyboard.isDown(Phaser.Keyboard.UP)) {
+           this.body.velocity.y = -this.speed;
+      } 
+      else if (this.game.input.keyboard.isDown(Phaser.Keyboard.DOWN)) {
+          this.body.velocity.y = this.speed;
+      }
       if(this.body.y < this.game.seaLevel){
         this.body.velocity.y = this.speed;
       }
-      
-    }
+      if(this.hasGarbage && this.game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)){
+        console.log("firing garbage");
+        this.hasGarbage = false;
+        this.game.firedGarbage.push(
+          this.game.add.existing(
+            new Garbage(this.game, this.world.x, this.world.y, -220)
+          )
+        );
+       this.garbagePointer = null;
+      }
 
+      // Collisions
+      for(var garbage of this.game.garbageCollection){
+         this.game.physics.arcade.collide(this, garbage, this.collisionHandler, null, this);
+      }
+    }
+    collisionHandler(player, garbage){
+      console.log("Collision");
+      garbage.kill();
+      this.hasGarbage = true;
+      this.garbagePointer = garbage;
+    }
+  
     updateDirection(directionState) {
         if (this.direction != directionState) {
             this.direction = directionState;
@@ -90,5 +93,4 @@ class Player extends Phaser.Sprite {
 }
 
 
-export
-default Player;
+export default Player;

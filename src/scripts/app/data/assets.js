@@ -34,8 +34,14 @@ export default {
     {
       'key': 'player',
       'type': 'atlasJSONHash',
-      'atlasURL': 'player_animated.json',
-      'textureURL': 'player_animated.png'
+      'atlasURL': 'player_animated2.json',
+      'textureURL': 'player_animated2.png'
+    },
+    {
+      'key': 'trash',
+      'type': 'atlasJSONHash',
+      'atlasURL': 'trash.json',
+      'textureURL': 'trash.png'
     },
     {
       'key': 'wave',
@@ -46,6 +52,11 @@ export default {
       'key': 'floorTile',
       'type': 'image',
       'url': 'ocean_floor.png'
+    },
+    {
+      'key': 'ship',
+      'type': 'image',
+      'url': 'boat01.png'
     }
   ],
 

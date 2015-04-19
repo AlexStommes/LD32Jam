@@ -7,6 +7,7 @@
 
 
 import Player from '../objects/Player';
+import Ship from '../objects/Ship';
 
 export default class Game extends Phaser.State {
 
@@ -14,7 +15,7 @@ export default class Game extends Phaser.State {
     this.game.world.setBounds(0, 0, 1800, 900);
     this.game.stage.backgroundColor = "85E0FF";
     this.sky(this.game);
-    this.game.seaLevel = 100;
+    this.game.seaLevel = 160;
     this.makeGradient(this.game);
     this.waves = this.makeWaves(this.game);
     this.makeFloor(this.game);
@@ -27,9 +28,15 @@ export default class Game extends Phaser.State {
     this.player = this.add.existing(this.makePlayer(x, y));
     this.game.physics.enable(this.player, Phaser.Physics.ARCADE);
     this.camera.follow(this.player);
+    this.game.garbageCollection = [];
+    this.game.firedGarbage = [];
+    this.ship = this.add.existing(this.makeShip(x, this.game.seaLevel - 143/2, -80));
   }
 
   update () {
+    if(this.ship.health === 0){
+       this.state.start('Credits');
+    }
     this.logo.angle += 0.1;
     if (this.waves.x<32){
       this.waves.x += 1;
@@ -42,6 +49,10 @@ export default class Game extends Phaser.State {
 
   makePlayer (x, y, speed = 120) {
     return new Player(this.game, x, y, speed);
+  }  
+
+  makeShip (x, y, speed = -80) {
+    return new Ship(this.game, x, y, speed);
   }
 
   sky(game) {

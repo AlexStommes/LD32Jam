@@ -16,7 +16,7 @@ export default class Game extends Phaser.State {
     this.sky(this.game);
     this.game.seaLevel = 100;
     this.makeGradient(this.game);
-    this.makeWaves(this.game);
+    this.waves = this.makeWaves(this.game);
     this.makeFloor(this.game);
 
     let { centerX: x, centerY: y } = this.world;
@@ -31,7 +31,14 @@ export default class Game extends Phaser.State {
 
   update () {
     this.logo.angle += 0.1;
+    if (this.waves.x<32){
+      this.waves.x += 1;
+    }
+    if (this.waves.x>=32){
+      this.waves.x = 0;
+    }
   }
+
 
   makePlayer (x, y, speed = 120) {
     return new Player(this.game, x, y, speed);
@@ -81,14 +88,17 @@ export default class Game extends Phaser.State {
 
   // waves!!!
   makeWaves(game) {
-    var wavesx=0;
-    var wavesy=78;
-    var wavesWidth=32;
-    var numTiles = this.calculateTiles(game.world.width, wavesWidth);
+    var waveGroup = game.add.group();
+    var waveWidth = 32;
+    var waveHeight = 32;
+    var wavex = 0;
+    var wavey = game.seaLevel - waveHeight;
+    var numTiles = this.calculateTiles(game.world.width, waveWidth);
     for (var i = 0; i < numTiles; i++){
-      wavesx = i*wavesWidth;
-      this.waves=this.add.image(wavesx,wavesy,'waves');
+      wavex = i*waveWidth;
+      waveGroup.create(wavex, wavey, 'wave')
     }
+    return waveGroup;
   }
 
   // sea floor!!!

@@ -38,7 +38,7 @@ export default {
       'textureURL': 'player_animated.png'
     },
     {
-      'key': 'waves',
+      'key': 'wave',
       'type': 'image',
       'url': 'ocean_waves.png'
     },

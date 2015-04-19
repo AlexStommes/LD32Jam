@@ -17,7 +17,7 @@ class FastShip extends Phaser.Sprite {
         this.game.physics.enable(this, Phaser.Physics.ARCADE);
         
         this.body.collideWorldBounds = true;
-        this.body.setSize(200, 143, 0, 0);
+        this.body.setSize(150, 63, 0, 0);
         this.body.velocity.x = this.speed;
 
         this.health = 3;

@@ -9,11 +9,12 @@
 import Player from '../objects/Player';
 import Ship from '../objects/Ship';
 import BossShip from '../objects/BossShip';
+import FastShip from '../objects/FastShip';
 
 export default class Game extends Phaser.State {
 
   create () {
-    this.game.world.setBounds(0, 0, 1800, 900);
+    this.game.world.setBounds(0, 0, 1800, 600);
     this.game.stage.backgroundColor = "85E0FF";
     this.sky(this.game);
     this.game.seaLevel = 160;
@@ -36,7 +37,7 @@ export default class Game extends Phaser.State {
     this.camera.follow(this.player);
     this.game.garbageCollection = [];
     this.game.firedGarbage = [];
-    this.ship = this.add.existing(this.makeShip(x, this.game.seaLevel - 143/2, -80));
+    //this.ship = this.add.existing(this.makeShip(x, this.game.seaLevel - 143/2, -80));
   }
 
   update () {
@@ -46,7 +47,7 @@ export default class Game extends Phaser.State {
     }
     if(this.game.fastShipsKilled === 2){
       this.game.fastShipsKilled = 0;
-      this.ship = this.add.existing(this.makeBossShip(this.game.world.width/2, this.game.seaLevel - 141/2, -80));
+      this.bossShip = this.game.add.existing(this.makeBossShip(this.game.world.width/2, this.game.seaLevel - 75, -80));
     }
     this.logo.angle += 0.1;
     if (this.waves.x<32){
@@ -148,5 +149,7 @@ export default class Game extends Phaser.State {
   calculateTiles(worldWidth, tileWidth) {
     return worldWidth / tileWidth + 1;
   }
-
+  makeFastShip(x, y, speed){
+      return new FastShip(this.game, x, y, speed);
+  }
 }

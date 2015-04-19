@@ -17,7 +17,7 @@ class BossShip extends Phaser.Sprite {
         this.game.physics.enable(this, Phaser.Physics.ARCADE);
         
         this.body.collideWorldBounds = true;
-        this.body.setSize(200, 143, 0, 0);
+        this.body.setSize(600, 141, 0, 0);
         this.body.velocity.x = this.speed;
 
         this.health = 9;
@@ -57,14 +57,17 @@ class BossShip extends Phaser.Sprite {
     
     handleGarbageCollision(ship, garbage){
         console.log("ship is hit!");
-        this.game.sound.play(this.explosionKeys[this.explosionPointer]);
         this.explosionPointer += 1;
         garbage.kill();
         this.health -= 1;
         
         if(this.health === 0){
             this.kill();
+            this.game.sound.play(this.explosionKeys[2]);
             this.game.gameState = 'win';
+        } else {
+        this.game.sound.play(this.explosionKeys[0]);
+            
         }
     }
 

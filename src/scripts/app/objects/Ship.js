@@ -73,8 +73,8 @@ class Ship extends Phaser.Sprite {
             this.kill();
             this.game.shipStage += 1;
             // add two small fast ships
-             this.ship = this.game.add.existing(this.makeFastShip(500, this.game.seaLevel - 40, -130));
-             this.ship = this.game.add.existing(this.makeFastShip(1200, this.game.seaLevel - 40, 130));
+             this.game.shipOne = this.game.add.existing(this.makeFastShip(500, this.game.seaLevel - 40, -130));
+             this.game.shipTwo = this.game.add.existing(this.makeFastShip(1200, this.game.seaLevel - 40, 130));
         }
     }
     makeFastShip(x, y, speed){

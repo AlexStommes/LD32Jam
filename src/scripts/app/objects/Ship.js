@@ -72,7 +72,12 @@ class Ship extends Phaser.Sprite {
             this.game.shipStage += 1;
             // add two small fast ships
              this.game.shipOne = this.game.add.existing(this.makeFastShip(900, this.game.seaLevel - 40, -130));
+             this.game.shipOne.zIndex = 2;
              this.game.shipTwo = this.game.add.existing(this.makeFastShip(1200, this.game.seaLevel - 40, 130));
+             this.game.shipTwo.zIndex = 3;
+             this.game.renderGroup.add(this.game.shipOne);
+             this.game.renderGroup.add(this.game.shipTwo);
+             this.game.renderGroup.sort('zIndex', Phaser.Group.SORT_ASCENDING);
         }
     }
     makeFastShip(x, y, speed){

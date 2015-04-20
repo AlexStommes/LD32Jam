@@ -1,11 +1,3 @@
-/*
- * Game state
- * ============================================================================
- *
- * A sample Game state, displaying the Phaser logo.
- */
-
-
 import Player from '../objects/Player';
 import Ship from '../objects/Ship';
 import BossShip from '../objects/BossShip';
@@ -23,21 +15,30 @@ export default class Game extends Phaser.State {
     this.game.fastShipsKilled = 0;
     this.game.gameState = 'playing';
     this.makeGradient(this.game);
-    this.waves = this.makeWaves(this.game);
     this.makeFloor(this.game);
     this.music = this.game.sound.play('music', 0.8, true);
 
     let { centerX: x, centerY: y } = this.world;
     this.game.physics.startSystem(Phaser.Physics.ARCADE);
-    this.logo = this.add.image(x, y, 'phaser');
-    this.logo.anchor.set(0.5);
 
     this.player = this.add.existing(this.makePlayer(x, y));
     this.game.physics.enable(this.player, Phaser.Physics.ARCADE);
     this.camera.follow(this.player);
     this.game.garbageCollection = [];
     this.game.firedGarbage = [];
-    this.game.ship = this.game.add.existing(this.makeShip(x, this.game.seaLevel - 143/2, -80));
+    this.game.renderGroup = this.game.add.group();
+    this.backgroundWaves = this.makeBackgroundWaves(this.game);
+    this.backgroundWaves.zIndex = 0;
+    this.game.renderGroup.add(this.backgroundWaves);
+
+    // this.game.ship = this.game.add.existing(this.makeShip(x, this.game.seaLevel - 143/2, -80));
+    this.waves = this.makeWaves(this.game);
+    this.waves.zIndex = 4;
+    this.game.renderGroup.add(this.waves);
+    this.game.ship = this.game.add.existing(this.makeShip(x, this.game.seaLevel - 160/2, -80));
+    this.game.ship.zIndex = 2;
+    this.game.renderGroup.add(this.game.ship);
+    this.game.renderGroup.sort('zIndex', Phaser.Group.SORT_ASCENDING);
   }
 
   update () {
@@ -52,14 +53,21 @@ export default class Game extends Phaser.State {
     if(this.game.fastShipsKilled === 2){
       this.game.fastShipsKilled = 0;
       this.game.bossShip = this.game.add.existing(this.makeBossShip(this.game.world.width/2, this.game.seaLevel - 75, -80));
+      this.game.bossShip.zIndex = 2;
+      this.game.renderGroup.add(this.game.bossShip);
+      this.game.renderGroup.sort('zIndex', Phaser.Group.SORT_ASCENDING);
     }
-    this.logo.angle += 0.1;
     if (this.waves.x<32){
-      this.waves.x += 1;
-    }
-    if (this.waves.x>=32){
+      this.waves.x += .5;
+    } else {
       this.waves.x = 0;
     }
+    if (this.backgroundWaves.x<24){
+      this.backgroundWaves.x += .3;
+    } else {
+      this.backgroundWaves.x = 0;
+    }
+
 
     if (this.game.input.keyboard.isDown(Phaser.Keyboard.M)) {
       this.music.pause();
@@ -123,22 +131,34 @@ export default class Game extends Phaser.State {
     }
   }
 
-  // waves!!!
-  makeWaves(game) {
+  makeBackgroundWaves(game) {
     var waveGroup = game.add.group();
-    var waveWidth = 32;
-    var waveHeight = 32;
-    var wavex = 0;
-    var wavey = game.seaLevel - waveHeight;
+    var waveWidth = 24;
+    var waveHeight = 24;
+    var wavex = -24;
+    var wavey = game.seaLevel - waveHeight - 16;
     var numTiles = this.calculateTiles(game.world.width, waveWidth);
-    for (var i = 0; i < numTiles; i++){
+    for (var i = -1; i < numTiles; i++){
       wavex = i*waveWidth;
       waveGroup.create(wavex, wavey, 'wave')
     }
     return waveGroup;
   }
 
-  // sea floor!!!
+  makeWaves(game) {
+    var waveGroup = game.add.group();
+    var waveWidth = 32;
+    var waveHeight = 32;
+    var wavex = -32;
+    var wavey = game.seaLevel - waveHeight;
+    var numTiles = this.calculateTiles(game.world.width, waveWidth);
+    for (var i = -1; i < numTiles; i++){
+      wavex = i*waveWidth;
+      waveGroup.create(wavex, wavey, 'wave')
+    }
+    return waveGroup;
+  }
+
   makeFloor (game) {
     var floorx=0;
     var floorWidth=32;

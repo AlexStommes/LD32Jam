@@ -11,7 +11,7 @@ export default class Win extends Phaser.State {
   }
 
   update(){
-    if (this.game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
+    if (this.game.input.keyboard.isDown(Phaser.Keyboard.ENTER)) {
       this.state.start('Game'); 
     }
   }

@@ -73,6 +73,14 @@ class FastShip extends Phaser.Sprite {
         garbage.kill();
         this.health -= 1;
         
+        var explosion = this.game.add.sprite(garbage.x, garbage.y - 100, 'explosion');
+        explosion.animations.add('explosion');
+        explosion.killOnComplete = true;
+        explosion.events.onAnimationComplete.add(function(){
+           explosion.destroy()
+        }, this);
+        explosion.animations.play('explosion', 15);
+
         if(this.health === 0){
             this.kill();
             this.game.fastShipsKilled += 1;

@@ -74,8 +74,8 @@ class Ship extends Phaser.Sprite {
         explosion.events.onAnimationComplete.add(function(){
            explosion.destroy()
         }, this);
-
         explosion.animations.play('explosion', 15);
+
         if(this.health === 0){
             this.kill();
             this.game.shipStage += 1;

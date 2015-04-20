@@ -16,6 +16,7 @@ class Garbage extends Phaser.Sprite {
         this.body.velocity.y = this.speed;
         this.body.checkWorldBounds = true;
         this.garbaged = false;
+        this.hasAnimated = false;
     }
 
     update() {
@@ -26,6 +27,25 @@ class Garbage extends Phaser.Sprite {
         if(this.world.y < 0){
             this.destroy();
         } 
+
+        if(this.hasAnimated === false ){
+            if( this.body.velocity.y > 0 && this.world.y > 120){
+                this.playSplash();
+            }else if(this.body.velocity.y < 0 && this.world.y < 120){
+                this.playSplash();
+            }
+        }
+
+    }
+    playSplash(){
+        this.hasAnimated = true;
+        var splashAnimation = this.game.add.sprite(this.x, 100, 'splash');
+        splashAnimation.animations.add('splash');
+        splashAnimation.killOnComplete = true;
+        splashAnimation.events.onAnimationComplete.add(function(){
+           splashAnimation.destroy()
+        }, this);
+        splashAnimation.animations.play('splash', 12);
     }
 }
 

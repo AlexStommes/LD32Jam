@@ -18,9 +18,11 @@ class Player extends Phaser.Sprite {
         this.hasGarbage = false;
         this.canFireCount = 0;
         this.health = 5;
-        this.hudText = this.game.add.text(20, 500, '', { font: "12pt Courier", fill: "#19cb65", stroke: "#119f4e", strokeThickness: 1 });
-        this.hudText.fixedToCamera = true;
-        this.hudText.setText(this.makeHudString());
+        this.hpText = this.game.add.text(20, 500, '', { font: "12pt Courier", fill: "#19cb65", stroke: "#19cb65", strokeThickness: 1 });
+        this.hpText.fixedToCamera = true;
+        this.bellyText = this.game.add.text(20, 525, '', { font: "12pt Courier", fill: "#19cb65", stroke: "#19cb65", strokeThickness: 1 });
+        this.bellyText.fixedToCamera = true;
+        this.updateText();
 
         this.garbagePointer;
 
@@ -78,7 +80,7 @@ class Player extends Phaser.Sprite {
           )
         );
        this.garbagePointer = null;
-       this.hudText.setText(this.makeHudString());
+       this.updateText();
       }
 
       // Collisions
@@ -102,7 +104,7 @@ class Player extends Phaser.Sprite {
         this.game.time.events.add(Phaser.Timer.SECOND/6, destroySprite, this);
       }
       garbage.kill();
-      this.hudText.setText(this.makeHudString());
+      this.updateText();
       this.garbagePointer = garbage;
     }
 
@@ -118,9 +120,12 @@ class Player extends Phaser.Sprite {
         }
     }
 
-    makeHudString(){
-      let bellyState = this.hasGarbage ? 'Full' : 'Empty';
-      return 'HP: '+ this.health + '\nBelly: '+ bellyState;
+    updateText(){
+      var bellyState = this.hasGarbage ? 'Full' : 'Empty';
+      this.hpText.setText('HP: '+ this.health)
+      this.bellyText.setText('Belly: '+ bellyState);
+      this.bellyText.fill = this.hasGarbage ? '#ffb732' : '#19cb65';
+      this.bellyText.stroke = this.hasGarbage ? '#ffb732' : '#19cb65';
     }
 }
 

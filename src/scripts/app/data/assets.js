@@ -88,6 +88,11 @@ export default {
       'key': 'win',
       'type': 'image',
       'url': 'win_screen.png'
+    },
+    {
+      'key': 'hitStar',
+      'type': 'image',
+      'url': 'hit_star.png'
     }
   ],
 

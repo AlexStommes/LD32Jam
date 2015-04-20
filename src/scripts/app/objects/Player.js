@@ -88,7 +88,6 @@ class Player extends Phaser.Sprite {
     }
     collisionHandler(player, garbage){
       console.log("Collision");
-      garbage.kill();
       if(this.hasGarbage === false){
         this.game.sound.play('eat');
         this.hasGarbage = true;
@@ -96,7 +95,13 @@ class Player extends Phaser.Sprite {
       } else {
         this.health -= 1;
         this.game.sound.play('hit');
+        var hitImage = this.game.add.sprite(garbage.x, garbage.y+15, 'hitStar')
+        var destroySprite = function(){
+            hitImage.destroy();
+        }
+        this.game.time.events.add(Phaser.Timer.SECOND/6, destroySprite, this);
       }
+      garbage.kill();
       this.hudText.setText(this.makeHudString());
       this.garbagePointer = garbage;
     }

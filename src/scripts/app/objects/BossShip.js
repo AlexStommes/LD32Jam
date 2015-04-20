@@ -24,6 +24,10 @@ class BossShip extends Phaser.Sprite {
     update() {
 
         if(this.health === 0) return;
+        
+        if(this.body.velocity.x === 0){
+            this.body.velocity.x = -80; //hack
+        }
 
         // Detect collisions
         for(var garbage of this.game.firedGarbage){

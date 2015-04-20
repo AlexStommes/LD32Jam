@@ -99,6 +99,11 @@ export default {
       'key': 'hitStar',
       'type': 'image',
       'url': 'hit_star.png'
+    },
+    {
+      'key': 'bubble',
+      'type': 'image',
+      'url': 'bubble.png'
     }
   ],
 

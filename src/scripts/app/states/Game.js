@@ -39,6 +39,7 @@ export default class Game extends Phaser.State {
     this.game.ship.zIndex = 2;
     this.game.renderGroup.add(this.game.ship);
     this.game.renderGroup.sort('zIndex', Phaser.Group.SORT_ASCENDING);
+    this.makeBubbles();
   }
 
   update () {
@@ -175,5 +176,26 @@ export default class Game extends Phaser.State {
   }
   makeFastShip(x, y, speed){
       return new FastShip(this.game, x, y, speed);
+  }
+
+ makeBubbles(){
+    var emitter = this.game.add.emitter(this.game.world.centerX, 0, 400);
+
+  emitter.width = this.game.world.width;
+  emitter.y = this.game.world.height;
+  // emitter.angle = 30; // uncomment to set an angle for the rain.
+
+  emitter.makeParticles('bubble');
+  emitter.minParticleScale = 0.1;
+  emitter.maxParticleScale = 0.5;
+  emitter.gravity = 0;
+
+  emitter.setYSpeed(-25, -50);
+  emitter.setXSpeed(-5, 5);
+
+  emitter.minRotation = 0;
+  emitter.maxRotation = 0;
+
+  emitter.start(false, 8000, 5, 0);
   }
 }

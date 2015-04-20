@@ -42,6 +42,12 @@ export default {
       'type': 'atlasJSONHash',
       'atlasURL': 'trash.json',
       'textureURL': 'trash.png'
+    },   
+    {
+      'key': 'explosion',
+      'type': 'atlasJSONHash',
+      'atlasURL': 'explosion.json',
+      'textureURL': 'explosion.png'
     },
     {
       'key': 'wave',

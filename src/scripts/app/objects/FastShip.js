@@ -28,7 +28,6 @@ class FastShip extends Phaser.Sprite {
         if(this.body.velocity.x === 0){
             this.body.velocity.x = this.speed; //hack
         }
-
     
         // Detect collisions
         for(var garbage of this.game.firedGarbage){

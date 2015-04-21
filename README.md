@@ -1,32 +1,37 @@
-My Phaser Template
-===============================================================================
+# [Dolfender][game] ###########################################################
 
->   A project template for [Phaser][phsr] web games.
-
-Notice: this project _may become_ a project scaffold of sorts… Or maybe not…
-I'll figure out… If you're interested, well, stay tuned…
+>   Defend the ocean with the very trash that threatens it! 
 
 
-What's included?
+Gameplay
 -------------------------------------------------------------------------------
 
-*   [Gulp][gulp] task manager, to handle development and distribution tasks.
+Eat garbage by moving over it and shoot it back through your blow hole by
+pressing spacebar. Be careful! You can only eat one piece of garbage at a time.
+Any more will hurt you!
 
-*   [BrowserSync][bsnc] development server, for cross-device testing.
 
-*   [EditorConfig][edcf] support, for consistent editor configuration between
-    collaborators — check if EditorConfig support is available for your code
-    editor.
+### Controls ##################################################################
 
-*   [JSHint][jsht] for code quality check.
+*   **ARROW KEYS**: Movement 
+*   **SPACEBAR**: Shoot garbage eaten 
+*   **M**: Mute music 
+*   **U**: Unmute music 
+*   **ENTER**: Exit the game over screens 
 
-*   [Bower][bowr] for easy component management.
 
-*   [Babel][babl] to translate from ES6 to ES5 syntax.
-    See which [language features][feat] are currently supported.
+About this game
+-------------------------------------------------------------------------------
 
-*   [Handlebars][hbs.] templates, [LESS][less] style sheets, support for source
-    maps output, off-line cache and much more!
+This game was a [Jam entry][game] for the 32nd edition of the accelerated video
+game development competition [Ludum Dare][ld32], occurred last April, 2015.
+
+
+### Credits ###################################################################
+
+*   Alex Stommes  — _Project Lead, Programming_
+*   Robin Nelson  — _Programming_
+*   Corey Gardner — _Art, Music, Sound Effects_
 
 
 Development Instructions
@@ -46,48 +51,16 @@ npm run clean # Delete temporary and distribution build files.
 <small>Also, you may want to install Gulp and Bower globally, but you are not
 required to do so.</small>
 
-Happy coding!
-
-
-Sample Game
--------------------------------------------------------------------------------
-
-To see a more elaborate sample game in action, extract the `sample-game.zip`
-file, included in this repository, from the project root. The only extra
-dependency is [localForage][lofr], so you'll need to run `bower install` to run
-the game without errors.
-
 
 License
 -------------------------------------------------------------------------------
 
-All source code distributed under the terms of the [MIT License][lcnc].
-
-This project is based upon earlier efforts by these two brilliant developers:
-
-- [slush-phaser-node][sspn], by [Matt Gale (@Eruant)][matt], and
-- [slush-phaser-project][sspp], by [Sean Bohan (@pixelpicosean)][ppsn].
-
-Some code borrowed from [gulp-starter][gsdt], by Daniel Tello.
+Source code distributed under the terms of the [MIT License][lcnc].
 
 
 <!-- ---------------------------------------------------------------------- -->
 
-[bowr]: http://bower.io/
-[phsr]: http://phaser.io/
-[babl]: https://babeljs.io/
-[gulp]: http://gulpjs.com/
-[jsht]: http://jshint.com/
-[less]: http://lesscss.org/
-[edcf]: http://editorconfig.org/
-[hbs.]: http://handlebarsjs.com/
-[matt]: https://github.com/Eruant
-[bsnc]: http://www.browsersync.io/
-[feat]: http://babeljs.io/docs/learn-es6/
-[ppsn]: https://github.com/pixelpicosean/
-[lofr]: http://mozilla.github.io/localForage/
-[gsdt]: https://github.com/greypants/gulp-starter/
-[sspn]: https://github.com/Eruant/slush-phaser-node
-[sspp]: https://github.com/pixelpicosean/slush-phaser-project
-[dwld]: https://github.com/rblopes/my-phaser-template/archive/master.zip
-[lcnc]: https://github.com/rblopes/my-phaser-template/blob/master/LICENSE
+[ld32]: http://ludumdare.com/compo/ludum-dare-32/
+[dwld]: https://github.com/rblopes/dolfender/archive/master.zip
+[lcnc]: https://github.com/rblopes/dolfender/blob/master/LICENSE
+[game]: http://ludumdare.com/compo/ludum-dare-32/?action=preview&uid=16529
